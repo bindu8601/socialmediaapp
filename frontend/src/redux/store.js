@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { rootReducer } from "./reducer";
-
-const store = configureStore({
-  reducer: rootReducer,
+import AppReducer from "./AppSlice";
+export const store = configureStore({
+  reducer: {
+    AppSlice: AppReducer,
+  },
 });
-
-const { dispatch } = store;
-export { store, dispatch };
