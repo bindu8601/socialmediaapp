@@ -3,20 +3,26 @@ import { useSelector } from "react-redux";
 import {
   CustomButton,
   FriendsCard,
+  Loading,
+  PostCard,
   ProfileCard,
   TextInput,
   TopBar,
 } from "../components";
-import { friends, requests, suggest } from "../assets/data";
+import { friends, requests, suggest, posts } from "../assets/data";
 import { Link } from "react-router-dom";
 import { NoProfile } from "../assets";
-import { BsPersonFillAdd } from "react-icons/bs";
+import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { useForm } from "react-hook-form";
+import { BiImages, BiSolidVideo } from "react-icons/bi";
 const Home = () => {
   const { user } = useSelector(({ AppSlice }) => AppSlice);
   const [friendRequest, setFriendRequest] = useState(requests);
   const [suggestedFriends, setSuggestedFriends] = useState(suggest);
   const [errMsg, setErrMsg] = useState("");
+  const [file, setFile] = useState(null);
+  const [posting, setPosting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -34,7 +40,7 @@ const Home = () => {
         <div className="flex-1 h-full bg-primary px-4 flex flex-col gap-6 overflow-y-auto rounded-lg">
           <form
             className="bg-primary px-4 rounded-lg"
-            onSubmit={handlePostSubmit}
+            onSubmit={handleSubmit(handlePostSubmit)}
           >
             <div className="w-full flex items-center gap-2 py-4 border-b border-[#66666645]">
               <img
@@ -64,7 +70,82 @@ const Home = () => {
                 {errMsg?.message}
               </span>
             )}
+            <div className="flex items-center justify-between py-4">
+              <label
+                htmlFor="imgUpload"
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+              >
+                <input
+                  type="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  className="hidden"
+                  id="imgUpload"
+                  data-max-size="5121"
+                  accept=".jpg, .png, .jpeg"
+                />
+                <BiImages />
+                <span>Image</span>
+              </label>
+              <label
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                htmlFor="videoUpload"
+              >
+                <input
+                  type="file"
+                  data-max-size="5120"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  className="hidden"
+                  id="videoUpload"
+                  accept=".mp4, .wav"
+                />
+                <BiSolidVideo />
+                <span>Video</span>
+              </label>
+              <label
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                htmlFor="vgifUpload"
+              >
+                <input
+                  type="file"
+                  data-max-size="5120"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  className="hidden"
+                  id="vgifUpload"
+                  accept=".gif"
+                />
+                <BsFiletypeGif />
+                <span>Gif</span>
+              </label>
+              <div>
+                {posting ? (
+                  <Loading />
+                ) : (
+                  <CustomButton
+                    type="submit"
+                    title="Post"
+                    containerStyles="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm"
+                  />
+                )}
+              </div>
+            </div>
           </form>
+          {loading ? (
+            <Loading />
+          ) : posts?.length > 0 ? (
+            posts?.map((post) => {
+              <PostCard
+                key={post?._id}
+                post={post}
+                user={user}
+                deletePost={() => {}}
+                likePost={() => {}}
+              />;
+            })
+          ) : (
+            <div className="flex w-full h-full items-center justify-center">
+              <p className="text-lg textascent-2">No Post Available</p>
+            </div>
+          )}
         </div>{" "}
         <div className="hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto">
           <div className="w-full bg-primary shadow-sm rounded-lg px-6 py-5">
