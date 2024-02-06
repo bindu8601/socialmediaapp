@@ -132,15 +132,15 @@ const Home = () => {
           {loading ? (
             <Loading />
           ) : posts?.length > 0 ? (
-            posts?.map((post) => {
+            posts.map((post) => (
               <PostCard
                 key={post?._id}
                 post={post}
                 user={user}
                 deletePost={() => {}}
                 likePost={() => {}}
-              />;
-            })
+              />
+            ))
           ) : (
             <div className="flex w-full h-full items-center justify-center">
               <p className="text-lg textascent-2">No Post Available</p>
