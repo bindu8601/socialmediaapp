@@ -41,11 +41,11 @@ const ProfileCard = ({ user }) => {
             {user?._id === data?._id ? (
               <LiaEditSolid
                 size={22}
-                className="text-blue cursor-pointer"
+                className="text-[#6a5294] cursor-pointer"
                 onClick={() => dispatch(updateProfile(true))}
               />
             ) : (
-              <button className="bg-[#0444a430] text-sm text-white p-1 rounded">
+              <button className="bg-[#6a5294] text-sm text-white p-1 rounded">
                 <BsPersonFillAdd size={20} className="text-[#0f52b6]" />
               </button>
             )}
@@ -69,7 +69,7 @@ const ProfileCard = ({ user }) => {
             <span className="text-ascent-2">Who viewed ypur profile</span>
             <span className="text-ascent-1 text-lg">{user?.views?.length}</span>
           </div>
-          <span className="text-base text-blue">
+          <span className="text-base font-medium text-[#6a5294]">
             {user?.verified ? "Verified Account" : "Not Verified"}
           </span>
           <div className="flex items-center justify-between">

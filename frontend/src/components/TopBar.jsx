@@ -25,10 +25,10 @@ const TopBar = () => {
   return (
     <div className="topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary">
       <Link to="/" className="flex gap-2 items-center">
-        <div className="p-1 md:p-2 bg-[#065ad8] rounded text-white">
+        <div className="p-1 md:p-2 bg-[#6a5294] rounded text-white">
           <TbSocial />
         </div>
-        <span className="text-xl md:text-2xl text-[#065ad8] font-semibold">
+        <span className="text-xl md:text-2xl text-[#6a5294] font-semibold">
           ShareJoy
         </span>
       </Link>
@@ -44,7 +44,7 @@ const TopBar = () => {
         <CustomButton
           title="Search"
           type="submit"
-          containerStyles="bg-[#0444a4] text-white px-6 py-[11px] mt-[9px] rounded-r-full"
+          containerStyles="bg-[#6a5294] text-white px-6 py-[11px] mt-[9px] rounded-r-full"
         />
       </form>
       <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
