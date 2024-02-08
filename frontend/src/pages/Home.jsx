@@ -37,7 +37,7 @@ const Home = ({ theme, setTheme }) => {
           <ProfileCard user={user} />
           <FriendsCard friends={user?.friends} />
         </div>
-        <div className="flex-1 h-full bg-primary px-4 flex flex-col gap-6 overflow-y-auto rounded-lg">
+        <div className="flex-1 h-full px-4 flex flex-col gap-6 overflow-y-auto rounded-lg">
           <form
             className="bg-primary px-4 rounded-lg"
             onSubmit={handleSubmit(handlePostSubmit)}
