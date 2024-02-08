@@ -1,6 +1,7 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Home, Login, Profile, Register, ResetPassword } from "./pages";
 import { useSelector } from "react-redux";
+import useLocalStorage from "use-local-storage";
 
 function Layout() {
   const { user } = useSelector(({ AppSlice }) => AppSlice);
@@ -14,12 +15,15 @@ function Layout() {
 }
 
 function App() {
-  const { theme } = useSelector(({ AppSlice }) => AppSlice);
+  const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
   return (
-    <div data-theme={theme} className="w-full min-h-[100vh]">
+    <div data-theme={theme} className="w-full min-h-[100vh] app">
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home theme={theme} setTheme={setTheme} />}
+          />
           <Route path="/profile/:id?" element={<Profile />} />
         </Route>
         <Route path="/register" element={<Register />} />

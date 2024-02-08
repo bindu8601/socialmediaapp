@@ -7,11 +7,13 @@ import CustomButton from "./CustomButton";
 import { useForm } from "react-hook-form";
 import { BsMoon, BsSunFill } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { logout, setTheme } from "../redux/AppSlice";
+import { logout } from "../redux/AppSlice";
+import useLocalStorage from "use-local-storage";
 
-const TopBar = () => {
-  const { theme, user } = useSelector(({ AppSlice }) => AppSlice);
+const TopBar = ({ theme, setTheme }) => {
+  const { user } = useSelector(({ AppSlice }) => AppSlice);
   const dispatch = useDispatch();
+  console.log({ theme });
   const {
     register,
     handleSubmit,
@@ -19,7 +21,7 @@ const TopBar = () => {
   } = useForm();
   const handleTheme = () => {
     const themeValue = theme === "light" ? "dark" : "light";
-    dispatch(setTheme(themeValue));
+    setTheme(themeValue);
   };
   const handleSearch = async (data) => {};
   return (
@@ -49,7 +51,7 @@ const TopBar = () => {
       </form>
       <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
         <button onClick={() => handleTheme()}>
-          {theme ? <BsMoon /> : <BsSunFill />}
+          {theme === "light" ? <BsMoon /> : <BsSunFill />}
         </button>
         <div className="lg:flex">
           <IoMdNotificationsOutline />
